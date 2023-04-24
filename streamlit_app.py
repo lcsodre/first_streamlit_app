@@ -60,10 +60,10 @@ try:
 except URLError as e:
   streamlit.error()
 
-streamlit.header("The Fruit Load List Contains:")
+streamlit.header("View Our Fruit List - Add Your Favorites!")
 
 #Button to retrieve from Snowflake
-if streamlit.button('Get Fruit Load List'):
+if streamlit.button('Get Fruit List'):
   my_data_rows = get_fruit_load_list()
   streamlit.dataframe(my_data_rows)
 
