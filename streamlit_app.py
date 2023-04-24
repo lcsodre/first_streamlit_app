@@ -28,8 +28,9 @@ def get_fruit_load_list():
  
 def insert_row_snoeflake(new_fruit):
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-  my_cur.execute("insert into pc_rivery_db.public.fruit_load_list values('" + new_fruit + "')")
-  return 'Thanks for adding ' + new_fruit
+  with my_cnx.cursor() as my_cur:
+    my_cur.execute("insert into pc_rivery_db.public.fruit_load_list values('" + new_fruit + "')")
+    return 'Thanks for adding ' + new_fruit
 ##############################################################################
 streamlit.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇') 
 
