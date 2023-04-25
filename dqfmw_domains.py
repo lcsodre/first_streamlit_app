@@ -23,14 +23,17 @@ def insert_row_snowflake(new_domain):
     return 'The domain was added ' + new_domain
 ##############################################################################
 
+with streamlit.form(key="domain"):
+  input_name= streamlit.text_input(label="Domain Name")  
+  
+  #Button to insert into Snowflake
+  if streamlit.button('Add Domain to The List'):
+    message_insert = insert_row_snowflake(input_name)
+    streamlit.text(message_insert)
+    
+  #Button to retrieve from Snowflake
+  if streamlit.button('Get Domain´s List'):
+    my_data_rows = get_domain_load_list()
+    streamlit.dataframe(my_data_rows)
 
-#Button to retrieve from Snowflake
-if streamlit.button('Get Domain´s List'):
-  my_data_rows = get_domain_load_list()
-  streamlit.dataframe(my_data_rows)
-
-add_domain = streamlit.text_input('Enter a New Domain Name')
-#Button to insert into Snowflake
-if streamlit.button('Add Domain to The List'):
-  message_insert = insert_row_snowflake(add_domain)
-  streamlit.text(message_insert)
+  
