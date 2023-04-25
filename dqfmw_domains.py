@@ -33,7 +33,7 @@ if input_button:
   streamlit.text(message_insert)
 
 #Button to retrieve from Snowflake
-retrieve_button = streamlit.form_button('Refresh Domain´s List')
+retrieve_button = streamlit.button('Refresh Domain´s List')
 if retrieve_button:
   my_data_rows = get_domain_load_list()
   streamlit.dataframe(my_data_rows)
