@@ -26,14 +26,14 @@ def insert_row_snowflake(new_domain):
 with streamlit.form(key="domain"):
   input_name= streamlit.text_input(label="Domain Name")  
   input_button = streamlit.form_submit_button('Add Domain')
-  retrieve_button = streamlit.form_button('Refresh Domain´s List')
   
 #Button to insert into Snowflake
 if input_button:
   message_insert = insert_row_snowflake(input_name)
   streamlit.text(message_insert)
-    
+
 #Button to retrieve from Snowflake
+retrieve_button = streamlit.form_button('Refresh Domain´s List')
 if retrieve_button:
   my_data_rows = get_domain_load_list()
   streamlit.dataframe(my_data_rows)
