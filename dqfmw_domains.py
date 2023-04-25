@@ -23,27 +23,14 @@ def insert_row_snowflake(new_domain):
     return 'The domain was added ' + new_domain
 ##############################################################################
 
-try:
-  fruit_choice = streamlit.text_input('What fruit would you like information about?')
-  
-  if not fruit_choice:
-    streamlit.error("Please select a fruit to get information.")
-  else:
-    return_of_function=get_fruityvice_data(fruit_choice)
-    streamlit.dataframe(return_of_function)
-
-except URLError as e:
-  streamlit.error()
-
-streamlit.header("View Our Fruit List - Add Your Favorites!")
 
 #Button to retrieve from Snowflake
 if streamlit.button('Get Domain´s List'):
   my_data_rows = get_domain_load_list()
   streamlit.dataframe(my_data_rows)
 
-add_myfruit = streamlit.text_input('What fruit would you like to add?','Jackfruit')
+add_domain = streamlit.text_input('Enter a New Domain Name')
 #Button to insert into Snowflake
-if streamlit.button('Add Fruit to The List'):
-  message_insert = insert_row_snowflake(add_myfruit)
+if streamlit.button('Add Domain to The List'):
+  message_insert = insert_row_snowflake(add_domain)
   streamlit.text(message_insert)
