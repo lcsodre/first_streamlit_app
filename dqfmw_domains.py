@@ -39,4 +39,4 @@ if page_domains=='Create':
 
 if page_domains=='Read':
   my_data_rows = get_domain_load_list()
-  df = pd.dataframe(my_data_rows,columns=['Id','Name'])
+  df = pd.DataFrame(my_data_rows,columns=['Id','Name'])
