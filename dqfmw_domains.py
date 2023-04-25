@@ -4,7 +4,10 @@ import requests
 import snowflake.connector
 from urllib.error import URLError
 
-streamlit.title('DQ - Add Domains')
+streamlit.title('DQ - Domains')
+
+streamlit.sidebar.title('Menu')
+streamlit.sidebar.selectbox('Domains',['Create','Update','Delete','Read'])
 
 #######################################Functions##############################
 def get_domain_load_list():
