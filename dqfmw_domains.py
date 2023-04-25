@@ -38,8 +38,8 @@ except URLError as e:
 streamlit.header("View Our Fruit List - Add Your Favorites!")
 
 #Button to retrieve from Snowflake
-if streamlit.button('Get Fruit List'):
-  my_data_rows = get_fruit_load_list()
+if streamlit.button('Get Domain´s List'):
+  my_data_rows = get_domain_load_list()
   streamlit.dataframe(my_data_rows)
 
 add_myfruit = streamlit.text_input('What fruit would you like to add?','Jackfruit')
