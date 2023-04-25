@@ -26,7 +26,7 @@ def insert_row_snowflake(new_domain):
 with streamlit.form(key="domain"):
   input_name= streamlit.text_input(label="Domain Name")  
   input_button = streamlit.form_submit_button('Add Domain')
-  retrieve_button = streamlit.button('Refresh Domain´s List')
+  retrieve_button = streamlit.form_button('Refresh Domain´s List')
   
 #Button to insert into Snowflake
 if input_button:
