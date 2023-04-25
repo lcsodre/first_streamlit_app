@@ -18,7 +18,7 @@ def get_domain_load_list():
 def insert_row_snowflake(new_domain):
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   with my_cnx.cursor() as my_cur:
-    my_cur.execute("insert into pc_rivery_db.public.fruit_load_list values(DEFAULT,'" + new_domain + "')")
+    my_cur.execute("insert into DMDQFMRWK.METADATA.DOMAINS values(DEFAULT,'" + new_domain + "')")
     my_cnx.close()
     return 'The domain was added ' + new_domain
 ##############################################################################
