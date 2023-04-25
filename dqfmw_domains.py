@@ -4,11 +4,6 @@ import requests
 import snowflake.connector
 from urllib.error import URLError
 
-streamlit.title('DQ - Domains')
-
-streamlit.sidebar.title('Menu')
-streamlit.sidebar.selectbox('Domains',['Create','Update','Delete','Read'])
-
 #######################################Functions##############################
 def get_domain_load_list():
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
@@ -26,14 +21,22 @@ def insert_row_snowflake(new_domain):
     return 'The domain was added ' + new_domain
 ##############################################################################
 
-with streamlit.form(key="domain"):
-  input_name= streamlit.text_input(label="Domain Name")  
-  input_button = streamlit.form_submit_button('Add Domain')
-  
-#Button to insert into Snowflake
-if input_button:
-  message_insert = insert_row_snowflake(input_name)
-  streamlit.text(message_insert)
+streamlit.title('DQ - Domains')
 
-my_data_rows = get_domain_load_list()
-streamlit.dataframe(my_data_rows)
+streamlit.sidebar.title('Menu')
+page_domains = streamlit.sidebar.selectbox('Domains',['Create','Update','Delete','Read'])
+
+if page_domains=='Create':
+
+  with streamlit.form(key="domain"):
+    input_name= streamlit.text_input(label="Domain Name")  
+    input_button = streamlit.form_submit_button('Add Domain')
+
+  #Button to insert into Snowflake
+  if input_button:
+    message_insert = insert_row_snowflake(input_name)
+    streamlit.text(message_insert)
+
+if page_domains=='Read':
+  my_data_rows = get_domain_load_list()
+  streamlit.dataframe(my_data_rows)
