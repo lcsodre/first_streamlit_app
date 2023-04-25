@@ -1,5 +1,5 @@
 import streamlit
-import pandas
+import pandas as pd
 import requests
 import snowflake.connector
 from urllib.error import URLError
@@ -39,4 +39,4 @@ if page_domains=='Create':
 
 if page_domains=='Read':
   my_data_rows = get_domain_load_list()
-  streamlit.dataframe(my_data_rows,columns=['Id','Name'])
+  df = pd.dataframe(my_data_rows,columns=['Id','Name'])
