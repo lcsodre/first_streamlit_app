@@ -4,7 +4,7 @@ import requests
 import snowflake.connector
 from urllib.error import URLError
 
-streamlit.title('Data Quality Framework - Business Domains')
+streamlit.title('DQ - Add Domains')
 
 #######################################Functions##############################
 def get_domain_load_list():
