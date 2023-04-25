@@ -32,8 +32,5 @@ if input_button:
   message_insert = insert_row_snowflake(input_name)
   streamlit.text(message_insert)
 
-#Button to retrieve from Snowflake
-retrieve_button = streamlit.button('Refresh Domain´s List')
-if retrieve_button:
-  my_data_rows = get_domain_load_list()
-  streamlit.dataframe(my_data_rows)
+my_data_rows = get_domain_load_list()
+streamlit.dataframe(my_data_rows)
