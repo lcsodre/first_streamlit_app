@@ -47,7 +47,7 @@ if page_domains=='Read':
   my_data_rows = get_domain_load_list()
   df = pd.DataFrame(my_data_rows,columns=['Id','Name'])
   
-  streamlit.write(df)
+  print(df)
   
   for item in df:
     col1,col2,col3 = streamlit.columns((1,2,1))
