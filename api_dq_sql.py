@@ -3,6 +3,7 @@ import pandas as pd
 import snowflake.connector
 import os
 import openai
+import json
 
 #######################################Functions##############################
 def get_structure_list():
@@ -61,8 +62,8 @@ if streamlit.button('Gather SQL'):
     stop=["#", ";"]
   )
   
-  df = pd.read_json(response, lines=True)
-  streamlit.write(df)
+  y = json.loads(response)
+  streamlit.write(response)
 
 
   
