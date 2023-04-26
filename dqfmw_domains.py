@@ -38,13 +38,15 @@ if page_domains=='Create':
     streamlit.text(message_insert)
 
 if page_domains=='Read':
-  cols = streamlit.columns((1,2))
-  fields=['ID','Name']
+  cols = streamlit.columns((1,2,1))
+  fields=['ID','Name','Delete']
   
   for col,field_name in zip(cols,fields):
     col.write(field_name)
   
   my_data_rows = get_domain_load_list()
+  
+  streamlit.write(my_data_rows)
   
   for item in my_data_rows:
     col1,col2,col3 = streamlit.columns((1,2,1))
