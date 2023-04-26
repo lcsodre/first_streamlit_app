@@ -48,10 +48,10 @@ if page_domains=='Read':
   
   for item in my_data_rows:
     col1,col2,col3 = streamlit.columns((1,2,1))
-    col1.write(item.domain_id)
-    col2.write(item.domain_name)
+    col1.write(item.DOMAIN_ID)
+    col2.write(item.DOMAIN_NAME)
     button_space = col3.empty()
-    on_click = button_space.button('Delete','btn_delete' + str(item.domain_id))
+    on_click = button_space.button('Delete','btn_delete' + str(item.DOMAIN_ID))
     
   #my_data_rows = get_domain_load_list()
   #df = pd.DataFrame(my_data_rows,columns=['Id','Name'])
