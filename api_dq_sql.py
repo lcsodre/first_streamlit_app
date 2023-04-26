@@ -21,7 +21,7 @@ my_data_rows = get_structure_list()
 
 streamlit.table(my_data_rows)
 
-my_table_list = my_data_rows.set_index('STRUCTURE_NAME')
+my_table_list = my_data_rows.set_index('Name')
 
 page_domains = streamlit.sidebar.selectbox('Domains',my_table_list)
 
