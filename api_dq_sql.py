@@ -17,8 +17,8 @@ def get_structure_list():
 def get_attributes_list(p_catalog,p_schema,p_table):
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   with my_cnx.cursor() as my_cur:
-    my_cur.execute("SELECT COLUMN_NAME FROM DMDQFMRWK.PROCESSING.TMP_COLS WHERE TABLE_NAME =" + 'test' +" AND TABLE_CATALOG =  AND TABLE_SCHEMA =")
-    
+    v_query='SELECT COLUMN_NAME FROM DMDQFMRWK.PROCESSING.TMP_COLS WHERE TABLE_NAME =''' + p_table + ''' AND TABLE_CATALOG = ''' + p_catalog + ''' AND TABLE_SCHEMA = ''' + p_schema + ''
+    my_cur.execute(v_query)
     f_return=my_cur.fetchall() 
     my_cnx.close()                   
     df = pd.DataFrame(f_return,columns=['Name'])
@@ -39,31 +39,13 @@ p_table=p_structure_split[2]
 p_catalog=str(p_catalog)
 p_schema=str(p_schema)
 p_table=str(p_table)
-
-streamlit.write(p_catalog)
-
-streamlit.stop()
-                   
+                 
 #Retrive the Columns
 if streamlit.button('Get Columns'):
   my_data_rows = get_attributes_list(p_catalog,p_schema,p_table)
   p_column = streamlit.selectbox('Tables',my_data_rows)
 
-
-
-try:
-  fruit_choice = streamlit.text_input('What fruit would you like information about?')
-  
-  if not fruit_choice:
-    streamlit.error("Please select a fruit to get information.")
-  else:
-    return_of_function=get_fruityvice_data(fruit_choice)
-    streamlit.dataframe(return_of_function)
-
-except URLError as e:
-  streamlit.error()
-
-streamlit.header("View Our Fruit List - Add Your Favorites!")
+streamlit.stop()
 
 #Button to retrieve from Snowflake
 if streamlit.button('Get Fruit List'):
