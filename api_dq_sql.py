@@ -62,7 +62,7 @@ if streamlit.button('Gather SQL'):
     stop=["#", ";"]
   )
   
-  y = json.loads(response)
+  #y = json.loads(response)
   streamlit.write(response)
 
 
