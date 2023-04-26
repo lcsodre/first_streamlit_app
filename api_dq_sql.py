@@ -1,8 +1,8 @@
 import streamlit
 import pandas as pd
-import requests
 import snowflake.connector
-from urllib.error import URLError
+import os
+import openai
 
 #######################################Functions##############################
 def get_structure_list():
@@ -30,6 +30,7 @@ streamlit.header("Rules Definition!")
 my_data_rows = get_structure_list()
 p_structure = streamlit.selectbox('Tables',my_data_rows)
 
+#parses structure
 p_structure_split= p_structure.split('.')
 
 p_catalog=p_structure_split[0]
@@ -45,15 +46,25 @@ if streamlit.button('Get Columns'):
   my_data_rows = get_attributes_list(p_catalog,p_schema,p_table)
   p_column = streamlit.selectbox('Tables',my_data_rows)
 
-streamlit.stop()
 
-#Button to retrieve from Snowflake
-if streamlit.button('Get Fruit List'):
-  my_data_rows = get_fruit_load_list()
-  streamlit.dataframe(my_data_rows)
+streamlit.text('Busines rule')
 
-add_myfruit = streamlit.text_input('What fruit would you like to add?','Jackfruit')
-#Button to insert into Snowflake
-if streamlit.button('Add Fruit to The List'):
-  message_insert = insert_row_snoeflake(add_myfruit)
-  streamlit.text(message_insert)
+#Call API to write the SQL
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+response = openai.Completion.create(
+  model="text-davinci-003",
+  prompt="### Postgres SQL tables, with their properties:\n#\n# Employee(id, name, department_id)\n# Department(id, name, address)\n# Salary_Payments(id, employee_id, amount, date)\n#\n### A query to list the names of the departments which employed more than 10 employees in the last 3 months\nSELECT",
+  temperature=0,
+  max_tokens=150,
+  top_p=1.0,
+  frequency_penalty=0.0,
+  presence_penalty=0.0,
+  stop=["#", ";"]
+)
+
+streamlit.text('SQL rule',response)
+
+
+  
+ 
