@@ -23,6 +23,8 @@ def insert_row_snoeflake(new_fruit):
 ##############################################################################
 my_data_rows = get_structure_list()
 
+page_domains = streamlit.sidebar.selectbox('Domains',['Create','Update','Delete','Read'])
+
 # Let's put a pick list here so they can pick the fruit they want to include 
 fruits_selected = streamlit.multiselect("Select the Table:", list(my_data_rows.index))
 fruits_to_show = my_fruit_list.loc[fruits_selected]
