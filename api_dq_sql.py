@@ -47,23 +47,25 @@ if streamlit.button('Get Columns'):
   p_column = streamlit.selectbox('Tables',my_data_rows)
 
 
-streamlit.text_input('Busines rule')
+b_rule = streamlit.text_input('Busines rule')
 
-#Call API to write the SQL
-openai.api_key = streamlit.secrets['pass']
+if streamlit.button('Gather SQL'):
+ 
+  #Call API to write the SQL
+  openai.api_key = streamlit.secrets['pass']
 
-response = openai.Completion.create(
-  model="text-davinci-003",
-  prompt="### Postgres SQL tables, with their properties: Employee(id, name, department_id) Department(id, name, address) Salary_Payments(id, employee_id, amount, date) A query to list the names of the departments which employed more than 10 employees in the last 3 months SELECT",
-  temperature=0,
-  max_tokens=150,
-  top_p=1.0,
-  frequency_penalty=0.0,
-  presence_penalty=0.0,
-  stop=["#", ";"]
-)
+  response = openai.Completion.create(
+    model="text-davinci-003",
+    prompt=b_rule,
+    temperature=0,
+    max_tokens=150,
+    top_p=1.0,
+    frequency_penalty=0.0,
+    presence_penalty=0.0,
+    stop=["#", ";"]
+  )
 
-streamlit.write(response)
+  streamlit.write(response)
 
 
   
