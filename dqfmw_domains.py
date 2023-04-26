@@ -47,10 +47,10 @@ if page_domains=='Read':
   my_data_rows = get_domain_load_list()
   
   for item in my_data_rows:
-    col1,col2,col3 = streamlit.columns((1,2))
+    col1,col2,col3 = streamlit.columns((1,2,1))
     col1.write(item.id)
     col2.write(item.name)
-    button_space = col5.empty()
+    button_space = col3.empty()
     on_click = button_space.button('Delete','btn_delete' + str(item.id))
     
   #my_data_rows = get_domain_load_list()
