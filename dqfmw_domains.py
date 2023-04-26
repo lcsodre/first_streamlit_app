@@ -44,6 +44,8 @@ if page_domains=='Read':
   for col,field_name in zip(cols,fields):
     col.write(field_name)
   
+  my_data_rows = get_domain_load_list()
+  
   for item in my_data_rows:
     col1,col2,col3 = streamlit.columns((1,2))
     col1.write(item.id)
