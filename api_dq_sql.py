@@ -37,10 +37,12 @@ p_catalog=p_structure_split[0]
 p_schema=p_structure_split[1]
 p_table=p_structure_split[2]
 
-print(str(p_catalog))
-print(p_schema)
-print(p_table)
-                   
+p_catalog=str(p_catalog)
+p_schema=str(p_schema)
+p_table=str(p_table)
+
+print(p_catalog)
+
 streamlit.stop()
                    
 #Retrive the Columns
