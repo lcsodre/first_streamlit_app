@@ -47,23 +47,23 @@ if streamlit.button('Get Columns'):
   p_column = streamlit.selectbox('Tables',my_data_rows)
   b_rule = streamlit.text_area('Busines rule', value='#Snowflake \n'+p_structure+'('+p_column+')',height=300)
 
-  if streamlit.button('Gather SQL'):
+if streamlit.button('Gather SQL'):
 
-    #Call API to write the SQL
-    openai.api_key = streamlit.secrets['pass']
+  #Call API to write the SQL
+  openai.api_key = streamlit.secrets['pass']
 
-    response = openai.Completion.create(
-      model="text-davinci-003",
-      prompt=b_rule,
-      temperature=0,
-      max_tokens=150,
-      top_p=1.0,
-      frequency_penalty=0.0,
-      presence_penalty=0.0,
-      stop=["#", ";"]
-    )
+  response = openai.Completion.create(
+    model="text-davinci-003",
+    prompt=b_rule,
+    temperature=0,
+    max_tokens=150,
+    top_p=1.0,
+    frequency_penalty=0.0,
+    presence_penalty=0.0,
+    stop=["#", ";"]
+  )
 
-streamlit.write(response)
+  streamlit.write(response)
 
 
   
