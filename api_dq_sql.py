@@ -40,7 +40,7 @@ p_catalog=str(p_catalog)
 p_schema=str(p_schema)
 p_table=str(p_table)
 
-print('p_catalog')
+streamlit.write(p_catalog)
 
 streamlit.stop()
                    
