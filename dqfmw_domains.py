@@ -28,7 +28,7 @@ page_domains = streamlit.sidebar.selectbox('Domains',['Create','Update','Delete'
 
 if page_domains=='Create':
 
-  with streamlit.form(key="domain"):
+  with streamlit.form(key="domain_ins"):
     input_name= streamlit.text_input(label="Domain Name")  
     input_button = streamlit.form_submit_button('Add Domain')
 
@@ -38,6 +38,12 @@ if page_domains=='Create':
     streamlit.text(message_insert)
 
 if page_domains=='Read':
-  my_data_rows = get_domain_load_list()
-  df = pd.DataFrame(my_data_rows,columns=['Id','Name'])
-  streamlit.table(df)
+  cols = streamlit.columns((1,1,2))
+  fields=['Nº','ID','Name']
+  
+  for col,field_name in zip(cols,fields):
+    col.write(field_name)
+  #my_data_rows = get_domain_load_list()
+  #df = pd.DataFrame(my_data_rows,columns=['Id','Name'])
+  #streamlit.table(df)
+ 
