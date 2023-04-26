@@ -54,7 +54,7 @@ if page_domains=='Read':
     col1.write(item.Id)
     col2.write(item.Name)
     button_space = col3.empty()
-    on_click = button_space.button('Delete','btn_delete' + str(item.0))
+    on_click = button_space.button('Delete','btn_delete' + str(item.Id))
     
   #my_data_rows = get_domain_load_list()
   #df = pd.DataFrame(my_data_rows,columns=['Id','Name'])
