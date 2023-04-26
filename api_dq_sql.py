@@ -50,7 +50,7 @@ if streamlit.button('Get Columns'):
 streamlit.text_input('Busines rule')
 
 #Call API to write the SQL
-openai.api_key = "DQ_DM_KEY"
+openai.api_key = "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"
 
 response = openai.Completion.create(
   model="text-davinci-003",
