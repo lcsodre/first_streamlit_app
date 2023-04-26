@@ -5,19 +5,14 @@ import snowflake.connector
 from urllib.error import URLError
 
 #######################################Functions##############################
-def get_fruityvice_data(this_fruit_choice):
-  fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+fruit_choice)
-  # Parses the JSON and format it in a tabular format 
-  fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-  return fruityvice_normalized
-
-def get_fruit_load_list():
+def get_structure_list():
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   with my_cnx.cursor() as my_cur:
-    my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
+    my_cur.execute("SELECT STRUCTURE_NAME FROM DMDQFMRWK.METADATA.STRUCTURES")
     f_return=my_cur.fetchall() 
     my_cnx.close()
-    return f_return 
+    df = pd.DataFrame(f_return,columns=['Name'])
+    return df 
  
 def insert_row_snoeflake(new_fruit):
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
@@ -26,13 +21,10 @@ def insert_row_snoeflake(new_fruit):
     my_cnx.close()
     return 'Thanks for adding ' + new_fruit
 ##############################################################################
-streamlit.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇') 
-
-my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
-my_fruit_list = my_fruit_list.set_index('Fruit')
+my_data_rows = get_structure_list()
 
 # Let's put a pick list here so they can pick the fruit they want to include 
-fruits_selected = streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index),['Avocado','Strawberries'])
+fruits_selected = streamlit.multiselect("Select the Table:", list(my_data_rows.index))
 fruits_to_show = my_fruit_list.loc[fruits_selected]
 
 streamlit.dataframe(fruits_to_show)
