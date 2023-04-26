@@ -63,7 +63,7 @@ response = openai.Completion.create(
   stop=["#", ";"]
 )
 
-streamlit.text('SQL rule',response)
+streamlit.write(response)
 
 
   
