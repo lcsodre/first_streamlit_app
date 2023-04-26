@@ -14,17 +14,14 @@ def get_structure_list():
     df = pd.DataFrame(f_return,columns=['Name'])
     return df 
  
-def insert_row_snoeflake(new_fruit):
-  my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-  with my_cnx.cursor() as my_cur:
-    my_cur.execute("insert into pc_rivery_db.public.fruit_load_list values('" + new_fruit + "')")
-    my_cnx.close()
-    return 'Thanks for adding ' + new_fruit
 ##############################################################################
 streamlit.header("Rules Definition!")
 
 my_data_rows = get_structure_list()
-my_table_list = my_data_rows.set_index('Fruit')
+
+streamlit.table(my_data_rows)
+
+my_table_list = my_data_rows.set_index('STRUCTURE_NAME')
 
 page_domains = streamlit.sidebar.selectbox('Domains',my_table_list)
 
