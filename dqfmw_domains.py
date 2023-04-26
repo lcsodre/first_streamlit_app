@@ -51,8 +51,8 @@ if page_domains=='Read':
   
   for item in df:
     col1,col2,col3 = streamlit.columns((1,2,1))
-    col1.write(item.[0])
-    col2.write(item.[1])
+    col1.write(item.domain_id)
+    col2.write(item.domain_name)
     button_space = col3.empty()
     on_click = button_space.button('Delete','btn_delete' + str(item.Id))
     
