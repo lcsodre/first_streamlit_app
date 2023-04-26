@@ -14,12 +14,31 @@ def get_structure_list():
     df = pd.DataFrame(f_return,columns=['Name'])
     return df 
  
+def get_attributes_list(p_catalog,p_schema,p_table):
+  my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+  with my_cnx.cursor() as my_cur:
+    my_cur.execute("SELECT COLUMN_NAME FROM DMDQFMRWK.PROCESSING.TMP_COLS WHERE TABLE_NAME ='" + p_table + "' AND TABLE_CATALOG ='" + p_catalog + "'  AND TABLE_SCHEMA ='" + p_schema +"')
+    f_return=my_cur.fetchall() 
+    my_cnx.close()
+    df = pd.DataFrame(f_return,columns=['Name'])
+    return df 
 ##############################################################################
 streamlit.header("Rules Definition!")
 
+#Retrieve the Tables
 my_data_rows = get_structure_list()
+p_structure = streamlit.selectbox('Tables',my_data_rows)
 
-page_domains = streamlit.selectbox('Domains',my_data_rows)
+p_structure_split= p_structure.split('.')
+
+p_catalog=p_structure_split[0]
+p_schema=p_structure_split[1]
+p_table=p_structure_split[2]
+
+#Retrive the Columns
+if streamlit.button('Get Columns'):
+  my_data_rows = get_attributes_list(p_catalog,p_schema,p_table)
+  p_column = streamlit.selectbox('Tables',my_data_rows)
 
 streamlit.stop()
 
