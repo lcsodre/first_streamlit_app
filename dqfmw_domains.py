@@ -8,7 +8,7 @@ from urllib.error import URLError
 def get_domain_load_list():
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   with my_cnx.cursor() as my_cur:
-    my_cur.execute("select * from DMDQFMRWK.METADATA.DOMAINS")
+    my_cur.execute("select DOMAIN_ID,DOMAIN_NAME from DMDQFMRWK.METADATA.DOMAINS")
     f_return=my_cur.fetchall() 
     my_cnx.close()
     return f_return 
