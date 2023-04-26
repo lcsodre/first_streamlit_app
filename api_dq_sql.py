@@ -41,11 +41,9 @@ p_catalog=str(p_catalog)
 p_schema=str(p_schema)
 p_table=str(p_table)
                  
-#Retrive the Columns
-if streamlit.button('Get Columns'):
-  my_data_rows = get_attributes_list(p_catalog,p_schema,p_table)
-  p_column = streamlit.selectbox('Tables',my_data_rows)
-  b_rule = streamlit.text_area('Busines rule', value='#Snowflake \n'+p_structure+'('+p_column+')',height=300)
+my_data_rows = get_attributes_list(p_catalog,p_schema,p_table)
+p_column = streamlit.selectbox('Tables',my_data_rows)
+b_rule = streamlit.text_area('Busines rule', value='#Snowflake \n'+p_structure+'('+p_column+')',height=300)
 
 if streamlit.button('Gather SQL'):
 
