@@ -47,7 +47,7 @@ if streamlit.button('Get Columns'):
   p_column = streamlit.selectbox('Tables',my_data_rows)
 
 
-streamlit.textbox('Busines rule')
+streamlit.text_input('Busines rule')
 
 #Call API to write the SQL
 openai.api_key = "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"
