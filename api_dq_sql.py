@@ -47,7 +47,7 @@ if streamlit.button('Get Columns'):
   p_column = streamlit.selectbox('Tables',my_data_rows)
 
 
-b_rule = streamlit.text_area('Busines rule', height=300)
+b_rule = streamlit.text_area('Busines rule', height=300,'#Snowflake \n'+p_structure+'('+p_column+')')
 
 if streamlit.button('Gather SQL'):
  
