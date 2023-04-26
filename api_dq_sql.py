@@ -63,7 +63,7 @@ if streamlit.button('Gather SQL'):
   )
   
   y = json.loads(str(response))
-  streamlit.write(y[values]["choices"][0]["text"])
+  streamlit.write(y["choices"][0]["text"])
 
 
   
