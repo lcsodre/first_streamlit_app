@@ -44,19 +44,19 @@ if page_domains=='Read':
   for col,field_name in zip(cols,fields):
     col.write(field_name)
   
-  my_data_rows = get_domain_load_list()
-  df = pd.DataFrame(my_data_rows,columns=['Id','Name'])
-  
-  print(df)
-  
-  for item in df:
-    col1,col2,col3 = streamlit.columns((1,2,1))
-    col1.write(item.domain_id)
-    col2.write(item.domain_name)
-    button_space = col3.empty()
-    on_click = button_space.button('Delete','btn_delete' + str(item.Id))
-    
   #my_data_rows = get_domain_load_list()
   #df = pd.DataFrame(my_data_rows,columns=['Id','Name'])
-  #streamlit.table(df)
+  
+  #print(df)
+  
+  #for item in df:
+  #  col1,col2,col3 = streamlit.columns((1,2,1))
+  #  col1.write(item.domain_id)
+  #  col2.write(item.domain_name)
+  #  button_space = col3.empty()
+  #  on_click = button_space.button('Delete','btn_delete' + str(item.Id))
+    
+  my_data_rows = get_domain_load_list()
+  df = pd.DataFrame(my_data_rows,columns=['Id','Name'])
+  streamlit.table(df)
  
