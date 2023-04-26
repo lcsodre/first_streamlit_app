@@ -36,7 +36,7 @@ p_catalog=p_structure_split[0]
 p_schema=p_structure_split[1]
 p_table=p_structure_split[2]
 
-print(p_catalog)
+print(str(p_catalog))
 print(p_schema)
 print(p_table)
                    
