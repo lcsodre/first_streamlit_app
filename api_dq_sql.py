@@ -63,7 +63,7 @@ if streamlit.button('Get Columns'):
       stop=["#", ";"]
     )
 
-    streamlit.write(response)
+ streamlit.write(response)
 
 
   
