@@ -38,11 +38,19 @@ if page_domains=='Create':
     streamlit.text(message_insert)
 
 if page_domains=='Read':
-  cols = streamlit.columns((1,1,2))
-  fields=['Nº','ID','Name']
+  cols = streamlit.columns((1,2))
+  fields=['ID','Name']
   
   for col,field_name in zip(cols,fields):
     col.write(field_name)
+  
+  for item in my_data_rows:
+    col1,col2,col3 = streamlit.columns((1,2))
+    col1.write(item.id)
+    col2.write(item.name)
+    button_space = col5.empty()
+    on_click = button_space.button('Delete','btn_delete' + str(item.id))
+    
   #my_data_rows = get_domain_load_list()
   #df = pd.DataFrame(my_data_rows,columns=['Id','Name'])
   #streamlit.table(df)
