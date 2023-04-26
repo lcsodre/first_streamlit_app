@@ -19,7 +19,7 @@ streamlit.header("Rules Definition!")
 
 my_data_rows = get_structure_list()
 
-page_domains = streamlit.sidebar.selectbox('Domains',my_data_rows)
+page_domains = streamlit.selectbox('Domains',my_data_rows)
 
 streamlit.stop()
 
