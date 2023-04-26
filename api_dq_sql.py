@@ -30,7 +30,7 @@ streamlit.header("Rules Definition!")
 my_data_rows = get_structure_list()
 p_structure = streamlit.selectbox('Tables',my_data_rows)
 
-print(p_structure)
+streamlit.write(p_structure)
 p_structure_split= p_structure.split('.')
 
 p_catalog=p_structure_split[0]
