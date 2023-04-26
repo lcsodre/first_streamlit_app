@@ -61,7 +61,7 @@ if streamlit.button('Gather SQL'):
     stop=["#", ";"]
   )
   
-  response_normalized = pd.json_normalize(response.json())
+  response_normalized = pd.json_normalize(response)
   streamlit.write(response_normalized)
 
 
