@@ -65,7 +65,7 @@ if p_dim=='ACCURACY':
   p_rule_dim = 'Select quantity of records where value is less than <value_min> or value is greater than <value_max>'
 
 if p_dim=='CONSISTENCY':
-  p_rule_dim = 'Select quantity of records where value format is different of <999-999-99>'
+  p_rule_dim = 'Select quantity of records where value format is different of <AAAA 999-999-99>'
   
 if p_dim=='VALIDITY':
   p_rule_dim = 'Select quantity of records where value is in (1,3,5,7)'
