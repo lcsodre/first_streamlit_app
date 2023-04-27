@@ -74,7 +74,25 @@ if p_dim=='UNIQUENESS':
   p_rule_dim = 'Select the quantity  where the value exists in more than 1 record'
 
 if p_dim=='INTEGRITY':
-  p_rule_dim = 'Select quantity of records where value not exists on table <table_name2> and column=<column_name2>'
+  ###############Retrieve the Refference Tables
+  my_data_rows = get_structure_list()
+  p_structure2 = streamlit.selectbox('Refference Tables',my_data_rows)
+
+  #parses structure
+  p_structure_split2= p_structure2.split('.')
+
+  p_catalog2=p_structure_split2[0]
+  p_schem2a=p_structure_split2[1]
+  p_table2=p_structure_split2[2]
+
+  p_catalog2=str(p_catalog2)
+  p_schema2=str(p_schema2)
+  p_table2=str(p_table2)
+
+  my_data_rows = get_attributes_list(p_catalog2,p_schema2,p_table2)
+  p_column2 = streamlit.selectbox('Refference Columns',my_data_rows)
+  ########################################################
+  p_rule_dim = 'Select quantity of records where value not exists on table p_structure2 and column=p_column2'
 
 
 b_rule = streamlit.text_area('Busines rule', value='#Snowflake \n'+p_structure+'('+p_column+') \n' + p_rule_dim,height=300)
