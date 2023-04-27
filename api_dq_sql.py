@@ -58,22 +58,22 @@ p_column = streamlit.selectbox('Columns',my_data_rows)
 my_data_rows = get_dimensions_list()
 p_dim = streamlit.selectbox('Dimensions',my_data_rows)
 
-if p_dim='COMPLETENESS':
+if p_dim=='COMPLETENESS':
   p_rule_dim = 'Select quantity of records where is null"
 
-if p_dim='ACCURACY':
+if p_dim=='ACCURACY':
   p_rule_dim = 'Select quantity of records where value is less than <value_min> or value is greater than <value_max>
 
-if p_dim='CONSISTENCY':
+if p_dim=='CONSISTENCY':
   p_rule_dim = 'Select quantity of records where value format is different of <999-999-99>"
   
-if p_dim='VALIDITY':
+if p_dim=='VALIDITY':
   p_rule_dim = 'Select quantity of records where value is in (1,3,5,7)
 
-if p_dim='UNIQUENESS':
+if p_dim=='UNIQUENESS':
   p_rule_dim = 'Select quantity of records where value is not unique"
 
-if p_dim='INTEGRITY':
+if p_dim=='INTEGRITY':
   p_rule_dim = 'Select quantity of records where value not exists on table <table_name2> and column=<column_name2>"
 
 
