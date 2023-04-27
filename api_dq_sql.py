@@ -49,7 +49,7 @@ my_data_rows = get_structure_list()
 p_structure = streamlit.selectbox('Tables',my_data_rows)
 
 #parses structure
-p_structure_split= p_structure[1].split('.')
+p_structure_split= p_structure.split('.')
 
 p_catalog=p_structure_split[0]
 p_schema=p_structure_split[1]
