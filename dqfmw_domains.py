@@ -61,7 +61,7 @@ with streamlit.form(key="domain_ins"):
   
   my_data_rows = get_domain_load_list()
   df = pd.DataFrame(my_data_rows,columns=['Name'])
-  streamlit.write(df)
+  streamlit.table(df)
 
 
 #if page_domains=='Create':
