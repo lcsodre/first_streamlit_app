@@ -27,7 +27,7 @@ def get_tables_load_list(p_catalog):
 def get_domains_load_list():
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   with my_cnx.cursor() as my_cur:
-    v_query='SELECT DOMAIN_ID || '|' || DOMAIN_NAME FROM DMDQFMRWK.METADATA.DOMAINS'
+    v_query="SELECT DOMAIN_ID || '|' || DOMAIN_NAME FROM DMDQFMRWK.METADATA.DOMAINS"
     my_cur.execute(v_query)
     f_return=my_cur.fetchall() 
     my_cnx.close()
