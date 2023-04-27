@@ -37,7 +37,7 @@ def get_domains_load_list():
 def get_responsibles_load_list():
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   with my_cnx.cursor() as my_cur:
-    v_query="SELECT RESPONSIBLE_ID || '|' || RESPONSIBLE_NAME FROM DMDQFMRWK.METADATA.RESPONSIBLES
+    v_query="SELECT RESPONSIBLE_ID || '|' || RESPONSIBLE_NAME FROM DMDQFMRWK.METADATA.RESPONSIBLES"
     my_cur.execute(v_query)
     f_return=my_cur.fetchall() 
     my_cnx.close()
