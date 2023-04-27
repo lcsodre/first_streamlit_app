@@ -48,7 +48,7 @@ streamlit.header("Rules Definition!")
 my_data_rows = get_structure_list()
 p_structure = streamlit.selectbox('Tables',my_data_rows)
 
-streamlit.text(p_structure)
+streamlit.text(my_data_rows)
 
 #parses structure
 p_structure_split= p_structure[1].split('.')
