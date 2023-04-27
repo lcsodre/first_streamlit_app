@@ -28,7 +28,7 @@ def get_attributes_list(p_catalog,p_schema,p_table):
 def get_dimensions_list():
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   with my_cnx.cursor() as my_cur:
-    v_query='SELECT DIMENSION_ID || '|' || DIMENSION_NAME FROM DMDQFMRWK.METADATA.DIMENSIONS'
+    v_query="SELECT DIMENSION_ID || '|' || DIMENSION_NAME FROM DMDQFMRWK.METADATA.DIMENSIONS"
     my_cur.execute(v_query)
     f_return=my_cur.fetchall() 
     my_cnx.close()                   
