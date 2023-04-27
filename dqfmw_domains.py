@@ -24,7 +24,7 @@ def insert_row_snowflake(new_domain):
 def delete_row_snowflake(p_domain_id):
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   with my_cnx.cursor() as my_cur:
-    my_cur.execute("DELETE FROM DMDQFMRWK.METADATA.DOMAINS WHERE DOMAIN_ID = " + p_domain_id + ")")
+    my_cur.execute("DELETE FROM DMDQFMRWK.METADATA.DOMAINS WHERE DOMAIN_ID = " + p_domain_id )
     my_cnx.close()
     return 'The domain was added ' + new_domain
 ##############################################################################
