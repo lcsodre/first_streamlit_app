@@ -9,7 +9,7 @@ import json
 def get_structure_list():
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   with my_cnx.cursor() as my_cur:
-    my_cur.execute("SELECT STRUVCTURE_ID || '|' || STRUCTURE_NAME FROM DMDQFMRWK.METADATA.STRUCTURES")
+    my_cur.execute("SELECT STRUCTURE_ID || '|' || STRUCTURE_NAME FROM DMDQFMRWK.METADATA.STRUCTURES")
     f_return=my_cur.fetchall() 
     my_cnx.close()
     df = pd.DataFrame(f_return,columns=['Name'])
