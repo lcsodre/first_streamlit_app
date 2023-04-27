@@ -17,7 +17,7 @@ def get_databases_load_list():
 def get_tables_load_list(p_catalog):
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   with my_cnx.cursor() as my_cur:
-    v_query="SELECT TABLE_SCHEMA || '.' || TABLE_NAME AS NAME FROM '" +p_catalog+ "'.INFORMATION_SCHEMA.TABLES"
+    v_query="SELECT TABLE_SCHEMA || '.' || TABLE_NAME AS NAME FROM " +p_catalog+ ".INFORMATION_SCHEMA.TABLES"
     my_cur.execute(v_query)
     f_return=my_cur.fetchall() 
     my_cnx.close()
