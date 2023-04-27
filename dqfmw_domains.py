@@ -26,7 +26,7 @@ def delete_row_snowflake(p_domain_id):
   with my_cnx.cursor() as my_cur:
     my_cur.execute("DELETE FROM DMDQFMRWK.METADATA.DOMAINS WHERE DOMAIN_ID = " + p_domain_id )
     my_cnx.close()
-    return 'The domain was added ' + new_domain
+    return 'The domain was removed ID=' + new_domain
 ##############################################################################
 
 streamlit.title('DQ - Domains')
