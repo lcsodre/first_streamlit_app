@@ -68,7 +68,7 @@ if p_dim=='CONSISTENCY':
   p_rule_dim = 'Select quantity of records where value format is different of <AAAA 999-999-99>'
   
 if p_dim=='VALIDITY':
-  p_rule_dim = 'Select quantity of records where value is in (1,3,5,7)'
+  p_rule_dim = 'Select quantity of records where value is not in (1,3,5,7)'
 
 if p_dim=='UNIQUENESS':
   p_rule_dim = 'Select the quantity  where the value exists in more than 1 record'
