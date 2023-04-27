@@ -82,7 +82,7 @@ if p_dim=='INTEGRITY':
   p_structure_split2= p_structure2.split('.')
 
   p_catalog2=p_structure_split2[0]
-  p_schem2a=p_structure_split2[1]
+  p_schema2=p_structure_split2[1]
   p_table2=p_structure_split2[2]
 
   p_catalog2=str(p_catalog2)
