@@ -71,7 +71,7 @@ if p_dim=='VALIDITY':
   p_rule_dim = 'Select quantity of records where value is in (1,3,5,7)'
 
 if p_dim=='UNIQUENESS':
-  p_rule_dim = 'Select quantity of records where value is not unique'
+  p_rule_dim = 'Select the quantity  where the value exists in more than 1 record'
 
 if p_dim=='INTEGRITY':
   p_rule_dim = 'Select quantity of records where value not exists on table <table_name2> and column=<column_name2>'
