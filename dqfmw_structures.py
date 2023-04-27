@@ -71,6 +71,8 @@ with streamlit.form(key="struct_ins"):
   my_data_rows = get_databases_load_list()
   p_database = streamlit.selectbox('Database',my_data_rows)
   
+  streamlit.write(p_database)
+  streamlit.stop()
   my_data_rows = get_tables_load_list(p_database)
   p_table = streamlit.selectbox('Table',my_data_rows)
   
