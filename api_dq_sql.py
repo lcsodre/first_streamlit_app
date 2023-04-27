@@ -18,7 +18,7 @@ def get_structure_list():
 def get_attributes_list(p_catalog,p_schema,p_table):
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   with my_cnx.cursor() as my_cur:
-    v_query='SELECT COLUMN_NAME FROM '+p_catalog+'.'+p_schema+'.columns WHERE TABLE_NAME ='+ "'" + p_table + "'" +' AND TABLE_CATALOG = '+ "'" + p_catalog + "'" + ' AND TABLE_SCHEMA = ' + "'" + p_schema + "'"
+    v_query='SELECT COLUMN_NAME FROM '+p_catalog+'.INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='+ "'" + p_table + "'" +' AND TABLE_CATALOG = '+ "'" + p_catalog + "'" + ' AND TABLE_SCHEMA = ' + "'" + p_schema + "'"
     my_cur.execute(v_query)
     f_return=my_cur.fetchall() 
     my_cnx.close()                   
