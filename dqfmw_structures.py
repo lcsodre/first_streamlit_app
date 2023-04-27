@@ -71,6 +71,13 @@ with streamlit.form(key="struct_ins"):
   my_data_rows = get_databases_load_list()
   p_database = streamlit.selectbox('Database',my_data_rows)
   
+  
+  #Button to insert into Snowflake
+  if input_button:
+    message_insert = insert_row_snowflake(p_cust_id,p_stew_id,p_owner_id,p_dom_id,p_structure,p_structure_desc)
+    streamlit.text(message_insert)
+  
+  streamlit.stop()
   my_data_rows = get_tables_load_list(p_database)
   p_table = streamlit.selectbox('Table',my_data_rows)
   
@@ -114,12 +121,7 @@ with streamlit.form(key="struct_ins"):
   
   p_structure_desc = streamlit.text_area('Busines rule', height=100)
   
-  input_button = streamlit.form_submit_button('Add Domain')
-
-  #Button to insert into Snowflake
-  if input_button:
-    message_insert = insert_row_snowflake(p_cust_id,p_stew_id,p_owner_id,p_dom_id,p_structure,p_structure_desc)
-    streamlit.text(message_insert)
+  input_button = streamlit.form_submit_button('Add Structure')
   
   my_data_rows = get_structures_load_list()
   df = pd.DataFrame(my_data_rows,columns=['Name'])
