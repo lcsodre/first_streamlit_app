@@ -42,7 +42,8 @@ def insert_rule(p_dimension_id,p_structure_id,p_attribute_name,p_rule_name,p_bus
     my_cnx.close()
     return 'The Rule was added ' + p_tech_rule
   
- def call_openai(b_rule):
+def call_openai(b_rule):
+  
   #Call API to write the SQL
   openai.api_key = streamlit.secrets['pass']
 
