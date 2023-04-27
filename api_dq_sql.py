@@ -121,6 +121,8 @@ if p_dim=='INTEGRITY':
 
 b_rule = streamlit.text_area('Busines rule', value='#Snowflake \n'+p_structure+'('+p_column+') \n' + p_rule_dim,height=300)
 
+p_technical_rule=''
+
 if streamlit.button('Gather SQL'):
 
   #Call API to write the SQL
@@ -140,8 +142,6 @@ if streamlit.button('Gather SQL'):
   y = json.loads(str(response))
   p_technical_rule=str(y["choices"][0]["text"])
   streamlit.write(p_technical_rule)
-
-p_tech_dq_rule = p_technical_rule
 
 if streamlit.button('Add Rule'):
   message_insert=insert_rule(p_dim_id,p_structure_id,p_column,'RULE_XXX',b_rule,p_technical_rule)  
