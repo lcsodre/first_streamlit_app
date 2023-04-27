@@ -24,39 +24,24 @@ def insert_row_snowflake(new_domain):
 streamlit.title('DQ - Domains')
 
 streamlit.sidebar.title('Menu')
-page_domains = streamlit.sidebar.selectbox('Domains',['Create','Update','Delete','Read'])
+page_domains = streamlit.sidebar.selectbox('Domains',['Domains','Responsible','Dimensions','Structures','Rules'])
 
-if page_domains=='Create':
-
-  with streamlit.form(key="domain_ins"):
-    input_name= streamlit.text_input(label="Domain Name")  
-    input_button = streamlit.form_submit_button('Add Domain')
+with streamlit.form(key="domain_ins"):
+  input_name= streamlit.text_input(label="Domain Name")  
+  input_button = streamlit.form_submit_button('Add Domain')
 
   #Button to insert into Snowflake
   if input_button:
     message_insert = insert_row_snowflake(input_name)
     streamlit.text(message_insert)
-
-if page_domains=='Read':
-  cols = streamlit.columns((1,2,1))
-  fields=['ID','Name','Delete']
-  
-  for col,field_name in zip(cols,fields):
-    col.write(field_name)
-  
-  #my_data_rows = get_domain_load_list()
-  #df = pd.DataFrame(my_data_rows,columns=['Id','Name'])
-  
-  #print(df)
-  
-  #for item in df:
-  #  col1,col2,col3 = streamlit.columns((1,2,1))
-  #  col1.write(item.domain_id)
-  #  col2.write(item.domain_name)
-  #  button_space = col3.empty()
-  #  on_click = button_space.button('Delete','btn_delete' + str(item.Id))
     
   my_data_rows = get_domain_load_list()
   df = pd.DataFrame(my_data_rows,columns=['Id','Name'])
   streamlit.table(df)
- 
+
+
+#if page_domains=='Create':
+  ##code here
+  
+#if page_domains=='Read':
+  #code here
