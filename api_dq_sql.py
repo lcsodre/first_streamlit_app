@@ -116,6 +116,6 @@ if streamlit.button('Gather SQL'):
   y = json.loads(str(response))
   streamlit.write(y["choices"][0]["text"])
 
-
-  
+if streamlit.button('Add Rule'):
+  get_attributes_list(p_catalog2,p_schema2,p_table2)  
  
