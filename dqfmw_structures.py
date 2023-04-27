@@ -54,7 +54,7 @@ def insert_row_snowflake(p_custodian_id,p_steward_id,p_owner_id,p_domain_id,p_st
 def get_structures_load_list():
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   with my_cnx.cursor() as my_cur:
-    v_query="SELECT STRUCTURE_ID || '|' || STRUCTURE_NAME FROM DMDQFMRWK.METADATA.STRUCTURES
+    v_query="SELECT STRUCTURE_ID || '|' || STRUCTURE_NAME FROM DMDQFMRWK.METADATA.STRUCTURES"
     my_cur.execute(v_query)
     f_return=my_cur.fetchall() 
     my_cnx.close()
