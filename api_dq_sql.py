@@ -24,6 +24,16 @@ def get_attributes_list(p_catalog,p_schema,p_table):
     my_cnx.close()                   
     df = pd.DataFrame(f_return,columns=['Name'])
     return df 
+  
+def get_dimensions_list():
+  my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+  with my_cnx.cursor() as my_cur:
+    v_query='SELECT DIMENSION_NAME FROM DMDQFMRWK.METADATA.DIMENSIONS
+    my_cur.execute(v_query)
+    f_return=my_cur.fetchall() 
+    my_cnx.close()                   
+    df = pd.DataFrame(f_return,columns=['Name'])
+    return df 
 ##############################################################################
 streamlit.header("Rules Definition!")
 
@@ -43,8 +53,31 @@ p_schema=str(p_schema)
 p_table=str(p_table)
                  
 my_data_rows = get_attributes_list(p_catalog,p_schema,p_table)
-p_column = streamlit.selectbox('Tables',my_data_rows)
-b_rule = streamlit.text_area('Busines rule', value='#Snowflake \n'+p_structure+'('+p_column+')',height=300)
+p_column = streamlit.selectbox('Columns',my_data_rows)
+
+my_data_rows = get_dimensions_list()
+p_dim = streamlit.selectbox('Dimensions',my_data_rows)
+
+if p_dim='COMPLETENESS':
+  p_rule_dim = 'Select quantity of records where is null"
+
+if p_dim='ACCURACY':
+  p_rule_dim = 'Select quantity of records where value is less than <value_min> or value is greater than <value_max>
+
+if p_dim='CONSISTENCY':
+  p_rule_dim = 'Select quantity of records where value format is different of <999-999-99>"
+  
+if p_dim='VALIDITY':
+  p_rule_dim = 'Select quantity of records where value is in (1,3,5,7)
+
+if p_dim='UNIQUENESS':
+  p_rule_dim = 'Select quantity of records where value is not unique"
+
+if p_dim='INTEGRITY':
+  p_rule_dim = 'Select quantity of records where value not exists on table <table_name2> and column=<column_name2>"
+
+
+b_rule = streamlit.text_area('Busines rule', value='#Snowflake \n'+p_structure+'('+p_column+') ' + p_dim,height=300)
 
 if streamlit.button('Gather SQL'):
 
