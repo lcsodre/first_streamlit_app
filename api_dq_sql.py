@@ -92,7 +92,7 @@ if p_dim=='INTEGRITY':
   my_data_rows = get_attributes_list(p_catalog2,p_schema2,p_table2)
   p_column2 = streamlit.selectbox('Refference Columns',my_data_rows)
   ########################################################
-  p_rule_dim = 'Select quantity of records where value not exists on table p_structure2 and column=p_column2'
+  p_rule_dim = 'Select quantity of records where value not exists on table ' + p_structure2 + ' and ' + column=p_column2
 
 
 b_rule = streamlit.text_area('Busines rule', value='#Snowflake \n'+p_structure+'('+p_column+') \n' + p_rule_dim,height=300)
