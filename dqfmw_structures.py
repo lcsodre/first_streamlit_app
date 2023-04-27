@@ -112,7 +112,7 @@ with streamlit.form(key="struct_ins"):
   #Retrive Name
   p_owner = p_owner_split_id[1]
   
-  streamlit.text_input('Descripttion',
+  p_structure_desc = streamlit.text_area('Busines rule', height=100)
   
   #Button to insert into Snowflake
   if input_button:
