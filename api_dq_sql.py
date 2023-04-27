@@ -28,7 +28,7 @@ def get_attributes_list(p_catalog,p_schema,p_table):
 def get_dimensions_list():
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   with my_cnx.cursor() as my_cur:
-    v_query='SELECT DIMENSION_NAME FROM DMDQFMRWK.METADATA.DIMENSIONS'
+    v_query='SELECT DIMENSION_ID || '|' || DIMENSION_NAME FROM DMDQFMRWK.METADATA.DIMENSIONS'
     my_cur.execute(v_query)
     f_return=my_cur.fetchall() 
     my_cnx.close()                   
@@ -70,6 +70,12 @@ p_column = streamlit.selectbox('Columns',my_data_rows)
 my_data_rows = get_dimensions_list()
 p_dim = streamlit.selectbox('Dimensions',my_data_rows)
 
+#Retrieve ID
+p_dim_split_id = p_dim.split('|')
+p_dim_id = p_dim_split_id[0]
+#Retrive Name
+p_dim = p_dim_split_id[1]
+
 if p_dim=='COMPLETENESS':
   p_rule_dim = 'Select quantity of records where is null'
 
@@ -89,6 +95,12 @@ if p_dim=='INTEGRITY':
   ###############Retrieve the Refference Tables
   my_data_rows = get_structure_list()
   p_structure2 = streamlit.selectbox('Refference Tables',my_data_rows)
+  
+  #Retrieve ID
+  p_structure_split_id2 = p_structure2.split('|')
+  p_structure_id2 = p_structure_split_id2[0]
+  #Retrive Name
+  p_structure2 = p_structure_split_id2[1]
 
   #parses structure
   p_structure_split2= p_structure2.split('.')
@@ -126,8 +138,9 @@ if streamlit.button('Gather SQL'):
   )
   
   y = json.loads(str(response))
-  streamlit.write(y["choices"][0]["text"])
-
-#if streamlit.button('Add Rule'):
-#  get_attributes_list(p_catalog2,p_schema2,p_table2)  
+  p_tech_rule=y["choices"][0]["text"]
+  streamlit.write(p_tech_rule)
+  
+if streamlit.button('Add Rule'):
+  insert_rule(p_dim_id,p_structure_id,p_column,'RULE_'+p_dim+'_'+p_structure+'_'+p_column,b_rule,p_tech_rule)  
  
