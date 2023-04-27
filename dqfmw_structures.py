@@ -47,7 +47,7 @@ def get_responsibles_load_list():
 def insert_row_snowflake(p_custodian_id,p_steward_id,p_owner_id,p_domain_id,p_structure_name,p_structure_desc):
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   with my_cnx.cursor() as my_cur:
-    my_cur.execute("insert into DMDQFMRWK.METADATA.STRUCTURES values(DEFAULT," + p_custodian_id + "," +p_steward_id + "," + p_owner_id + "," + p_domain_id + ",'" + p_structure_name + "','" + p_structure_desc + "'")")
+    my_cur.execute("insert into DMDQFMRWK.METADATA.STRUCTURES values(DEFAULT," + p_custodian_id + "," +p_steward_id + "," + p_owner_id + "," + p_domain_id + ",'" + p_structure_name + "','" + p_structure_desc + "')")
     my_cnx.close()
     return 'The responsible was added ' + new_resp
 
