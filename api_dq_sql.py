@@ -9,10 +9,10 @@ import json
 def get_structure_list():
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   with my_cnx.cursor() as my_cur:
-    my_cur.execute("SELECT STRUCTURE_NAME FROM DMDQFMRWK.METADATA.STRUCTURES")
+    my_cur.execute("SELECT STRUCTURE_ID,STRUCTURE_NAME FROM DMDQFMRWK.METADATA.STRUCTURES")
     f_return=my_cur.fetchall() 
     my_cnx.close()
-    df = pd.DataFrame(f_return,columns=['Name'])
+    df = pd.DataFrame(f_return,columns=['ID','Name'])
     return df   
  
 def get_attributes_list(p_catalog,p_schema,p_table):
@@ -34,6 +34,13 @@ def get_dimensions_list():
     my_cnx.close()                   
     df = pd.DataFrame(f_return,columns=['Name'])
     return df 
+
+def insert_rule(p_dimension_id,p_structure_id,p_attribute_name,p_rule_name,p_busines_rule,p_tech_rule):
+  my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+  with my_cnx.cursor() as my_cur:
+    my_cur.execute("insert into DMDQFMRWK.METADATA.RULES values(DEFAULT," + p_dimension_id "," + p_structure_id + ",'" + p_attribute_name + "','" + p_rule_name + "','" + p_busines_rule + "','" + p_tech_rule + "')")
+    my_cnx.close()
+    return 'The domain was added ' + new_domain
 ##############################################################################
 streamlit.header("Rules Definition!")
 
@@ -42,7 +49,7 @@ my_data_rows = get_structure_list()
 p_structure = streamlit.selectbox('Tables',my_data_rows)
 
 #parses structure
-p_structure_split= p_structure.split('.')
+p_structure_split= p_structure[1].split('.')
 
 p_catalog=p_structure_split[0]
 p_schema=p_structure_split[1]
@@ -116,6 +123,6 @@ if streamlit.button('Gather SQL'):
   y = json.loads(str(response))
   streamlit.write(y["choices"][0]["text"])
 
-if streamlit.button('Add Rule'):
-  get_attributes_list(p_catalog2,p_schema2,p_table2)  
+#if streamlit.button('Add Rule'):
+#  get_attributes_list(p_catalog2,p_schema2,p_table2)  
  
