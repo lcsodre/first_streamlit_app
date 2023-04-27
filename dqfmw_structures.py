@@ -117,7 +117,7 @@ my_data_rows = get_structures_load_list()
 df = pd.DataFrame(my_data_rows,columns=['Name'])
 streamlit.table(df)
 
-input_button = streamlit.form_submit_button('Add Structure')
+input_button = streamlit.button('Add Structure')
 
 #Button to insert into Snowflake
 if input_button:
