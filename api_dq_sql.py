@@ -40,7 +40,7 @@ def insert_rule(p_dimension_id,p_structure_id,p_attribute_name,p_rule_name,p_bus
   with my_cnx.cursor() as my_cur:
     my_cur.execute("insert into DMDQFMRWK.METADATA.RULES values(DEFAULT," + p_dimension_id + "," + p_structure_id + ",'" + p_attribute_name + "','" + p_rule_name + "','" + p_busines_rule + "','" + p_tech_rule + "')")
     my_cnx.close()
-    return 'The Rule was added ' + new_domain
+    return 'The Rule was added ' + p_rule_name
 ##############################################################################
 streamlit.header("Rules Definition!")
 
@@ -138,10 +138,10 @@ if streamlit.button('Gather SQL'):
   )
   
   y = json.loads(str(response))
-  p_tech_rule=str(y["choices"][0]["text"])
-  streamlit.write(p_tech_rule)
+  p_technical_rule=str(y["choices"][0]["text"])
+  streamlit.write(p_technical_rule)
   
 if streamlit.button('Add Rule'):
-  message_insert=insert_rule(p_dim_id,p_structure_id,p_column,'RULE_XXX',b_rule,p_tech_rule)  
+  message_insert=insert_rule(p_dim_id,p_structure_id,p_column,'RULE_XXX',b_rule,p_technical_rule)  
   streamlit.text(message_insert)
  
