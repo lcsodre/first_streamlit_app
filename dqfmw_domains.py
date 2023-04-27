@@ -24,7 +24,7 @@ def insert_row_snowflake(new_domain):
 streamlit.title('DQ - Domains')
 
 streamlit.sidebar.title('Menu')
-page_domains = streamlit.sidebar.selectbox('Domains',['Domains','Responsible','Dimensions','Structures','Rules'])
+page_domains = streamlit.sidebar.selectbox('Subject',['Domains','Responsible','Dimensions','Structures','Rules'])
 
 with streamlit.form(key="domain_ins"):
   input_name= streamlit.text_input(label="Domain Name")  
