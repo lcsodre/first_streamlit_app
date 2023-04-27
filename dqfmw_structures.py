@@ -112,7 +112,7 @@ with streamlit.form(key="struct_ins"):
   #Retrive Name
   p_owner = p_owner_split_id[1]
   
-  p_structure_desc = streamlit.text_area('Busines rule', height=100)
+  p_structure_desc = streamlit.text_area('Structure Description', height=100)
 
   my_data_rows = get_structures_load_list()
   df = pd.DataFrame(my_data_rows,columns=['Name'])
