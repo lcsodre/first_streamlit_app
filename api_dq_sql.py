@@ -74,7 +74,7 @@ if p_dim=='UNIQUENESS':
   p_rule_dim = 'Select quantity of records where value is not unique'
 
 if p_dim=='INTEGRITY':
-  p_rule_dim = 'Select quantity of records where value not exists on table <table_name2> and column=<column_name2>"
+  p_rule_dim = 'Select quantity of records where value not exists on table <table_name2> and column=<column_name2>'
 
 
 b_rule = streamlit.text_area('Busines rule', value='#Snowflake \n'+p_structure+'('+p_column+') ' + p_dim,height=300)
