@@ -19,7 +19,7 @@ def insert_row_snowflake(new_resp):
   with my_cnx.cursor() as my_cur:
     my_cur.execute("insert into DMDQFMRWK.METADATA.RESPONSIBLES values(DEFAULT,'" + new_resp + "')")
     my_cnx.close()
-    return 'The responsible was added ' + new_dim
+    return 'The responsible was added ' + new_resp
 
 def delete_row_snowflake(p_resp_id):
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
