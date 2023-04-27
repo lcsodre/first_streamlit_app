@@ -9,10 +9,10 @@ import json
 def get_structure_list():
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   with my_cnx.cursor() as my_cur:
-    my_cur.execute("SELECT STRUCTURE_ID,STRUCTURE_NAME FROM DMDQFMRWK.METADATA.STRUCTURES")
+    my_cur.execute("SELECT STRUCTURE_NAME FROM DMDQFMRWK.METADATA.STRUCTURES")
     f_return=my_cur.fetchall() 
     my_cnx.close()
-    df = pd.DataFrame(f_return,columns=['ID','Name'])
+    df = pd.DataFrame(f_return,columns=['Name'])
     return df   
  
 def get_attributes_list(p_catalog,p_schema,p_table):
@@ -47,8 +47,6 @@ streamlit.header("Rules Definition!")
 #Retrieve the Tables
 my_data_rows = get_structure_list()
 p_structure = streamlit.selectbox('Tables',my_data_rows)
-
-streamlit.text(my_data_rows['ID'])
 
 #parses structure
 p_structure_split= p_structure[1].split('.')
