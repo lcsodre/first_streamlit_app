@@ -38,8 +38,8 @@ def get_dimensions_list():
 def insert_rule(p_dimension_id,p_structure_id,p_attribute_name,p_rule_name,p_busines_rule,p_tech_rule):
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   with my_cnx.cursor() as my_cur:
+    p_tech_rule=p_tech_rule.strip()
     v_query="insert into DMDQFMRWK.METADATA.RULES values(DEFAULT," + p_dimension_id + "," + p_structure_id + ",'" + p_attribute_name + "','" + p_rule_name + "','" + p_busines_rule + "','" + p_tech_rule + "')"
-    v_query=v_query.strip()
     streamlit.write(v_query)
     my_cur.execute(v_query)
     my_cnx.close()
