@@ -41,7 +41,6 @@ def insert_rule(p_dimension_id,p_structure_id,p_attribute_name,p_rule_name,p_bus
     p_tech_rule=p_tech_rule.strip()
     p_tech_rule = p_tech_rule.replace("'","''")
     v_query="insert into DMDQFMRWK.METADATA.RULES values(DEFAULT," + p_dimension_id + "," + p_structure_id + ",'" + p_attribute_name + "','" + p_rule_name + "','" + p_busines_rule + "','" + p_tech_rule + "')"
-    streamlit.write(v_query)
     my_cur.execute(v_query)
     my_cnx.close()
     return 'The Rule was added ' + p_tech_rule
