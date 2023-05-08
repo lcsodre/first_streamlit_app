@@ -6,9 +6,6 @@ import openai
 import json
 import time
 
-if 'changed' not in streamlit.session_state:
-    streamlit.session_state.changed = 0
-p_column = None    
 #######################################Functions##############################
 def get_structure_list():
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
@@ -69,8 +66,6 @@ def call_openai(b_rule):
   p_technical_rule=str(y["choices"][0]["text"])
   return p_technical_rule
 
-def changed_structure():
-    streamlit.session_state.changed = 1
 ##############################################################################
   
 streamlit.header("Rules Definition!")
@@ -95,10 +90,9 @@ p_catalog=str(p_catalog)
 p_schema=str(p_schema)
 p_table=str(p_table)
 
-if streamlit.session_state.changed == 1:
-  my_data_rows2 = get_attributes_list(p_catalog,p_schema,p_table)
-  streamlit.session_state.changed = 0
-  p_column = streamlit.selectbox('Columns',my_data_rows2)
+my_data_rows2 = get_attributes_list(p_catalog,p_schema,p_table)
+streamlit.session_state.changed = 0
+p_column = streamlit.selectbox('Columns',my_data_rows2)
 
 my_data_rows = get_dimensions_list()
 p_dim = streamlit.selectbox('Dimensions',my_data_rows)
@@ -151,16 +145,15 @@ if p_dim=='INTEGRITY':
   ########################################################
   p_rule_dim = 'Select quantity of records where value not exists on table ' + p_structure2 + '(' +p_column2 +')'
 
-if p_column is not None:
-    b_rule = streamlit.text_area('Busines rule', value='#Snowflake \n'+p_structure+'('+p_column+') \n' + p_rule_dim,height=300)
+b_rule = streamlit.text_area('Busines rule', value='#Snowflake \n'+p_structure+'('+p_column+') \n' + p_rule_dim,height=300)
 
-    if streamlit.button('Preview SQL'):
-      #Call API to write the SQL
-      p_technical_rule=call_openai(b_rule)
-      streamlit.write(p_technical_rule)
+if streamlit.button('Preview SQL'):
+  #Call API to write the SQL
+  p_technical_rule=call_openai(b_rule)
+  streamlit.write(p_technical_rule)
 
-    if streamlit.button('Add Rule'):
-      #Call API to write the SQL
-      p_technical_rule=call_openai(b_rule)
-      message_insert=insert_rule(p_dim_id,p_structure_id,p_column,'RULE_',b_rule,p_technical_rule)  
-      streamlit.text(message_insert)
+if streamlit.button('Add Rule'):
+  #Call API to write the SQL
+  p_technical_rule=call_openai(b_rule)
+  message_insert=insert_rule(p_dim_id,p_structure_id,p_column,'RULE_',b_rule,p_technical_rule)  
+  streamlit.text(message_insert)
