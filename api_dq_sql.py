@@ -67,7 +67,10 @@ def call_openai(b_rule):
   return p_technical_rule
 
 ##############################################################################
-  
+
+streamlit.sidebar.title('Menu')
+page_domains = streamlit.sidebar.selectbox('Subject',['Domains','Responsible','Dimensions','Structures','Rules'])
+
 streamlit.header("Rules Definition!")
 
 #Retrieve the Tables
@@ -90,8 +93,9 @@ p_catalog=str(p_catalog)
 p_schema=str(p_schema)
 p_table=str(p_table)
 
+time.sleep(1)
+
 my_data_rows2 = get_attributes_list(p_catalog,p_schema,p_table)
-streamlit.session_state.changed = 0
 p_column = streamlit.selectbox('Columns',my_data_rows2)
 
 my_data_rows = get_dimensions_list()
