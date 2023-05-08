@@ -6,6 +6,9 @@ import openai
 import json
 import time
 
+if 'changed' not in st.session_state:
+    st.session_state.changed = 0
+    
 #######################################Functions##############################
 def get_structure_list():
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
@@ -65,13 +68,18 @@ def call_openai(b_rule):
   y = json.loads(str(response))
   p_technical_rule=str(y["choices"][0]["text"])
   return p_technical_rule
+
+def chaged_table():
+  st.session_state.changed = 1
+  return 1
 ##############################################################################
   
 streamlit.header("Rules Definition!")
 
+st.session_state.count
 #Retrieve the Tables
 my_data_rows = get_structure_list()
-p_structure = streamlit.selectbox('Tables',my_data_rows)
+p_structure = streamlit.selectbox('Tables',my_data_rows,on_change=changed_table)
 #Retrieve ID
 p_structure_split_id = p_structure.split('|')
 p_structure_id = p_structure_split_id[0]
@@ -89,7 +97,9 @@ p_catalog=str(p_catalog)
 p_schema=str(p_schema)
 p_table=str(p_table)
 
-my_data_rows2 = get_attributes_list(p_catalog,p_schema,p_table)
+if st.session_state.changed == 1:
+  my_data_rows2 = get_attributes_list(p_catalog,p_schema,p_table)
+  st.session_state.changed = 0
 p_column = streamlit.selectbox('Columns',my_data_rows2)
 
 #Retrieve ID
