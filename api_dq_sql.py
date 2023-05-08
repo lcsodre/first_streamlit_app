@@ -87,7 +87,8 @@ p_table=p_structure_split[2]
 p_catalog=str(p_catalog)
 p_schema=str(p_schema)
 p_table=str(p_table)
-                 
+
+time.sleep(3)
 my_data_rows2 = get_attributes_list(p_catalog,p_schema,p_table)
 p_column = streamlit.selectbox('Columns',my_data_rows2)
 
@@ -96,10 +97,6 @@ p_column_split_id = p_column.split('|')
 p_column_id = p_column_split_id[0]
 #Retrive Name
 p_column = p_column_split_id[1]
-
-streamlit.text(p_column)
-
-streamlit.stop()
 
 my_data_rows = get_dimensions_list()
 p_dim = streamlit.selectbox('Dimensions',my_data_rows)
