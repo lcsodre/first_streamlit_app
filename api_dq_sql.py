@@ -93,12 +93,8 @@ p_catalog=str(p_catalog)
 p_schema=str(p_schema)
 p_table=str(p_table)
 
-time.sleep(1)
-
 my_data_rows2 = get_attributes_list(p_catalog,p_schema,p_table)
 p_column = streamlit.selectbox('Columns',my_data_rows2)
-
-time.sleep(1)
 
 my_data_rows = get_dimensions_list()
 p_dim = streamlit.selectbox('Dimensions',my_data_rows)
@@ -147,13 +143,11 @@ if p_dim=='INTEGRITY':
   p_schema2=str(p_schema2)
   p_table2=str(p_table2)
   
-  time.sleep(1)
   my_data_rows = get_attributes_list(p_catalog2,p_schema2,p_table2)
   p_column2 = streamlit.selectbox('Refference Columns',my_data_rows)
   ########################################################
   p_rule_dim = 'Select quantity of records where value not exists on table ' + p_structure2 + '(' +p_column2 +')'
   
-time.sleep(1)
 b_rule = streamlit.text_area('Busines rule', value='#Snowflake \n'+p_structure+'('+p_column+') \n' + p_rule_dim,height=300)
 
 if streamlit.button('Preview SQL'):
