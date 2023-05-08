@@ -68,16 +68,13 @@ def call_openai(b_rule):
   y = json.loads(str(response))
   p_technical_rule=str(y["choices"][0]["text"])
   return p_technical_rule
-
-def chaged_table():
-  streamlit.session_state.changed = 1
 ##############################################################################
   
 streamlit.header("Rules Definition!")
 
 #Retrieve the Tables
 my_data_rows = get_structure_list()
-p_structure = streamlit.selectbox('Tables',my_data_rows,on_change=changed_table)
+p_structure = streamlit.selectbox('Tables',my_data_rows,on_change=streamlit.session_state.changed = 1)
 #Retrieve ID
 p_structure_split_id = p_structure.split('|')
 p_structure_id = p_structure_split_id[0]
