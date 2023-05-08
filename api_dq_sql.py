@@ -8,7 +8,7 @@ import time
 
 if 'changed' not in streamlit.session_state:
     streamlit.session_state.changed = 0
-    
+p_column = None    
 #######################################Functions##############################
 def get_structure_list():
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
@@ -151,16 +151,16 @@ if p_dim=='INTEGRITY':
   ########################################################
   p_rule_dim = 'Select quantity of records where value not exists on table ' + p_structure2 + '(' +p_column2 +')'
 
-streamlit.text(streamlit.session_state)
-b_rule = streamlit.text_area('Busines rule', value='#Snowflake \n'+p_structure+'('+p_column+') \n' + p_rule_dim,height=300)
+if p_column is not None:
+    b_rule = streamlit.text_area('Busines rule', value='#Snowflake \n'+p_structure+'('+p_column+') \n' + p_rule_dim,height=300)
 
-if streamlit.button('Preview SQL'):
-  #Call API to write the SQL
-  p_technical_rule=call_openai(b_rule)
-  streamlit.write(p_technical_rule)
+    if streamlit.button('Preview SQL'):
+      #Call API to write the SQL
+      p_technical_rule=call_openai(b_rule)
+      streamlit.write(p_technical_rule)
 
-if streamlit.button('Add Rule'):
-  #Call API to write the SQL
-  p_technical_rule=call_openai(b_rule)
-  message_insert=insert_rule(p_dim_id,p_structure_id,p_column,'RULE_',b_rule,p_technical_rule)  
-  streamlit.text(message_insert)
+    if streamlit.button('Add Rule'):
+      #Call API to write the SQL
+      p_technical_rule=call_openai(b_rule)
+      message_insert=insert_rule(p_dim_id,p_structure_id,p_column,'RULE_',b_rule,p_technical_rule)  
+      streamlit.text(message_insert)
