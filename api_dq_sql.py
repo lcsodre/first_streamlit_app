@@ -4,7 +4,6 @@ import snowflake.connector
 import os
 import openai
 import json
-import time
 
 #######################################Functions##############################
 def get_structure_list():
@@ -41,7 +40,6 @@ def insert_rule(p_dimension_id,p_structure_id,p_attribute_name,p_rule_name,p_bus
   with my_cnx.cursor() as my_cur:
     p_tech_rule=p_tech_rule.strip()
     p_tech_rule = p_tech_rule.replace("'","''")
-    p_busines_rule = p_busines_rule.replace("'","''")
     v_query="insert into DMDQFMRWK.METADATA.RULES values(DEFAULT," + p_dimension_id + "," + p_structure_id + ",'" + p_attribute_name + "','" + p_rule_name + "','" + p_busines_rule + "','" + p_tech_rule + "')"
     my_cur.execute(v_query)
     my_cnx.close()
@@ -154,6 +152,5 @@ if streamlit.button('Preview SQL'):
 if streamlit.button('Add Rule'):
   #Call API to write the SQL
   p_technical_rule=call_openai(b_rule)
-  message_insert=insert_rule(p_dim_id,p_structure_id,p_column,'RULE_',b_rule,p_technical_rule)  
+  message_insert=insert_rule(p_dim_id,p_structure_id,p_column,'RULE_XXX',b_rule,p_technical_rule)  
   streamlit.text(message_insert)
- 
