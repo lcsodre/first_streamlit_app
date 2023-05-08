@@ -66,92 +66,91 @@ def call_openai(b_rule):
   p_technical_rule=str(y["choices"][0]["text"])
   return p_technical_rule
 ##############################################################################
-with streamlit.form(key="resp_ins"):
   
-  streamlit.header("Rules Definition!")
+streamlit.header("Rules Definition!")
 
-  #Retrieve the Tables
+#Retrieve the Tables
+my_data_rows = get_structure_list()
+p_structure = streamlit.selectbox('Tables',my_data_rows)
+#Retrieve ID
+p_structure_split_id = p_structure.split('|')
+p_structure_id = p_structure_split_id[0]
+#Retrive Name
+p_structure = p_structure_split_id[1]
+
+#parses structure
+p_structure_split= p_structure.split('.')
+
+p_catalog=p_structure_split[0]
+p_schema=p_structure_split[1]
+p_table=p_structure_split[2]
+
+p_catalog=str(p_catalog)
+p_schema=str(p_schema)
+p_table=str(p_table)
+
+my_data_rows2 = get_attributes_list(p_catalog,p_schema,p_table)
+p_column = streamlit.selectbox('Columns',my_data_rows2)
+
+#Retrieve ID
+p_column_split_id = p_column.split('|')
+p_column_id = p_column_split_id[0]
+#Retrive Name
+p_column = p_column_split_id[1]
+
+my_data_rows = get_dimensions_list()
+p_dim = streamlit.selectbox('Dimensions',my_data_rows)
+
+#Retrieve ID
+p_dim_split_id = p_dim.split('|')
+p_dim_id = p_dim_split_id[0]
+#Retrive Name
+p_dim = p_dim_split_id[1]
+
+if p_dim=='COMPLETENESS':
+  p_rule_dim = 'Select quantity of records where is null'
+
+if p_dim=='ACCURACY':
+  p_rule_dim = 'Select quantity of records where value is less than <value_min> or value is greater than <value_max>'
+
+if p_dim=='CONSISTENCY':
+  p_rule_dim = 'Select quantity of records where value format is different of <AAAA 999-999-99>'
+
+if p_dim=='VALIDITY':
+  p_rule_dim = 'Select quantity of records where value is not in (1,3,5,7)'
+
+if p_dim=='UNIQUENESS':
+  p_rule_dim = 'Select the quantity  where the value exists in more than 1 record'
+
+if p_dim=='INTEGRITY':
+  ###############Retrieve the Refference Tables
   my_data_rows = get_structure_list()
-  p_structure = streamlit.selectbox('Tables',my_data_rows)
+  p_structure2 = streamlit.selectbox('Refference Tables',my_data_rows)
+
   #Retrieve ID
-  p_structure_split_id = p_structure.split('|')
-  p_structure_id = p_structure_split_id[0]
+  p_structure_split_id2 = p_structure2.split('|')
+  p_structure_id2 = p_structure_split_id2[0]
   #Retrive Name
-  p_structure = p_structure_split_id[1]
+  p_structure2 = p_structure_split_id2[1]
 
   #parses structure
-  p_structure_split= p_structure.split('.')
+  p_structure_split2= p_structure2.split('.')
 
-  p_catalog=p_structure_split[0]
-  p_schema=p_structure_split[1]
-  p_table=p_structure_split[2]
+  p_catalog2=p_structure_split2[0]
+  p_schema2=p_structure_split2[1]
+  p_table2=p_structure_split2[2]
 
-  p_catalog=str(p_catalog)
-  p_schema=str(p_schema)
-  p_table=str(p_table)
+  p_catalog2=str(p_catalog2)
+  p_schema2=str(p_schema2)
+  p_table2=str(p_table2)
 
-  my_data_rows2 = get_attributes_list(p_catalog,p_schema,p_table)
-  p_column = streamlit.selectbox('Columns',my_data_rows2)
-
-  #Retrieve ID
-  p_column_split_id = p_column.split('|')
-  p_column_id = p_column_split_id[0]
-  #Retrive Name
-  p_column = p_column_split_id[1]
-
-  my_data_rows = get_dimensions_list()
-  p_dim = streamlit.selectbox('Dimensions',my_data_rows)
-
-  #Retrieve ID
-  p_dim_split_id = p_dim.split('|')
-  p_dim_id = p_dim_split_id[0]
-  #Retrive Name
-  p_dim = p_dim_split_id[1]
-
-  if p_dim=='COMPLETENESS':
-    p_rule_dim = 'Select quantity of records where is null'
-
-  if p_dim=='ACCURACY':
-    p_rule_dim = 'Select quantity of records where value is less than <value_min> or value is greater than <value_max>'
-
-  if p_dim=='CONSISTENCY':
-    p_rule_dim = 'Select quantity of records where value format is different of <AAAA 999-999-99>'
-
-  if p_dim=='VALIDITY':
-    p_rule_dim = 'Select quantity of records where value is not in (1,3,5,7)'
-
-  if p_dim=='UNIQUENESS':
-    p_rule_dim = 'Select the quantity  where the value exists in more than 1 record'
-
-  if p_dim=='INTEGRITY':
-    ###############Retrieve the Refference Tables
-    my_data_rows = get_structure_list()
-    p_structure2 = streamlit.selectbox('Refference Tables',my_data_rows)
-
-    #Retrieve ID
-    p_structure_split_id2 = p_structure2.split('|')
-    p_structure_id2 = p_structure_split_id2[0]
-    #Retrive Name
-    p_structure2 = p_structure_split_id2[1]
-
-    #parses structure
-    p_structure_split2= p_structure2.split('.')
-
-    p_catalog2=p_structure_split2[0]
-    p_schema2=p_structure_split2[1]
-    p_table2=p_structure_split2[2]
-
-    p_catalog2=str(p_catalog2)
-    p_schema2=str(p_schema2)
-    p_table2=str(p_table2)
-
-    my_data_rows = get_attributes_list(p_catalog2,p_schema2,p_table2)
-    p_column2 = streamlit.selectbox('Refference Columns',my_data_rows)
-    ########################################################
-    p_rule_dim = 'Select quantity of records where value not exists on table ' + p_structure2 + '(' +p_column2 +')'
+  my_data_rows = get_attributes_list(p_catalog2,p_schema2,p_table2)
+  p_column2 = streamlit.selectbox('Refference Columns',my_data_rows)
+  ########################################################
+  p_rule_dim = 'Select quantity of records where value not exists on table ' + p_structure2 + '(' +p_column2 +')'
 
 
-  b_rule = streamlit.text_area('Busines rule', value='#Snowflake \n'+p_structure+'('+p_column+') \n' + p_rule_dim,height=300)
+b_rule = streamlit.text_area('Busines rule', value='#Snowflake \n'+p_structure+'('+p_column+') \n' + p_rule_dim,height=300)
 
 if streamlit.button('Preview SQL'):
   #Call API to write the SQL
