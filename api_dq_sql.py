@@ -19,7 +19,7 @@ def get_structure_list():
 def get_attributes_list(p_catalog,p_schema,p_table):
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   with my_cnx.cursor() as my_cur:
-    my_cur.execute("SELECT COLUMN_NAME FROM "+p_catalog+".INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='"+ p_table + "' AND TABLE_SCHEMA = '" + p_schema + "'")
+    my_cur.execute("SELECT ORDINAL_POSITION || '|' || COLUMN_NAME FROM "+p_catalog+".INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='"+ p_table + "' AND TABLE_SCHEMA = '" + p_schema + "'")
     f_return=my_cur.fetchall() 
     my_cnx.close()                   
     df = pd.DataFrame(f_return,columns=['Name'])
@@ -91,9 +91,16 @@ p_table=str(p_table)
 my_data_rows2 = get_attributes_list(p_catalog,p_schema,p_table)
 p_column = streamlit.selectbox('Columns',my_data_rows2)
 
+#Retrieve ID
+p_column_split_id = p_column.split('|')
+p_column_id = p_column_split_id[0]
+#Retrive Name
+p_column = p_column_split_id[1]
+
 streamlit.text(p_column)
 
 streamlit.stop()
+
 my_data_rows = get_dimensions_list()
 p_dim = streamlit.selectbox('Dimensions',my_data_rows)
 
