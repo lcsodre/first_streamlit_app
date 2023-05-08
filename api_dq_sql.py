@@ -90,8 +90,6 @@ p_table=str(p_table)
                  
 my_data_rows = get_attributes_list(p_catalog,p_schema,p_table)
 p_column = streamlit.selectbox('Columns',my_data_rows)
-
-p_column = p_column = [0]
   
 my_data_rows = get_dimensions_list()
 p_dim = streamlit.selectbox('Dimensions',my_data_rows)
