@@ -70,7 +70,7 @@ def call_openai(b_rule):
   return p_technical_rule
 
 def chaged_table():
-  st.session_state.changed = 1
+  streamlit.session_state.changed = 1
   return 1
 ##############################################################################
   
