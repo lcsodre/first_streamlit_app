@@ -71,7 +71,6 @@ def call_openai(b_rule):
 
 def chaged_table():
   streamlit.session_state.changed = 1
-  return 1
 ##############################################################################
   
 streamlit.header("Rules Definition!")
