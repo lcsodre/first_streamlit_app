@@ -98,7 +98,7 @@ p_table=str(p_table)
 if streamlit.session_state.changed == 1:
   my_data_rows2 = get_attributes_list(p_catalog,p_schema,p_table)
   streamlit.session_state.changed = 0
-p_column = streamlit.selectbox('Columns',my_data_rows2)
+  p_column = streamlit.selectbox('Columns',my_data_rows2)
 
 #Retrieve ID
 p_column_split_id = p_column.split('|')
