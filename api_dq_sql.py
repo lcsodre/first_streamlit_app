@@ -76,7 +76,6 @@ def chaged_table():
   
 streamlit.header("Rules Definition!")
 
-st.session_state.count
 #Retrieve the Tables
 my_data_rows = get_structure_list()
 p_structure = streamlit.selectbox('Tables',my_data_rows,on_change=changed_table)
