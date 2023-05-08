@@ -4,6 +4,7 @@ import snowflake.connector
 import os
 import openai
 import json
+import time
 
 #######################################Functions##############################
 def get_structure_list():
@@ -18,7 +19,7 @@ def get_structure_list():
 def get_attributes_list(p_catalog,p_schema,p_table):
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   with my_cnx.cursor() as my_cur:
-    v_query='SELECT COLUMN_NAME FROM '+p_catalog+'.INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='+ "'" + p_table + "'" +' AND TABLE_CATALOG = '+ "'" + p_catalog + "'" + ' AND TABLE_SCHEMA = ' + "'" + p_schema + "'"
+    v_query='SELECT TABLE_NAME || '|' || COLUMN_NAME FROM '+p_catalog+'.INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='+ "'" + p_table + "'" +' AND TABLE_CATALOG = '+ "'" + p_catalog + "'" + ' AND TABLE_SCHEMA = ' + "'" + p_schema + "'"
     my_cur.execute(v_query)
     f_return=my_cur.fetchall() 
     my_cnx.close()                   
@@ -38,8 +39,10 @@ def get_dimensions_list():
 def insert_rule(p_dimension_id,p_structure_id,p_attribute_name,p_rule_name,p_busines_rule,p_tech_rule):
   my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   with my_cnx.cursor() as my_cur:
+    p_tech_rule=p_tech_rule.strip()
+    p_tech_rule = p_tech_rule.replace("'","''")
+    p_busines_rule = p_busines_rule.replace("'","''")
     v_query="insert into DMDQFMRWK.METADATA.RULES values(DEFAULT," + p_dimension_id + "," + p_structure_id + ",'" + p_attribute_name + "','" + p_rule_name + "','" + p_busines_rule + "','" + p_tech_rule + "')"
-    streamlit.write(v_query)
     my_cur.execute(v_query)
     my_cnx.close()
     return 'The Rule was added ' + p_tech_rule
@@ -89,6 +92,10 @@ p_table=str(p_table)
 my_data_rows = get_attributes_list(p_catalog,p_schema,p_table)
 p_column = streamlit.selectbox('Columns',my_data_rows)
 
+p_column_all = p_column.split('|')
+
+p_column = p_column_all[1]
+  
 my_data_rows = get_dimensions_list()
 p_dim = streamlit.selectbox('Dimensions',my_data_rows)
 
@@ -151,5 +158,5 @@ if streamlit.button('Preview SQL'):
 if streamlit.button('Add Rule'):
   #Call API to write the SQL
   p_technical_rule=call_openai(b_rule)
-  message_insert=insert_rule(p_dim_id,p_structure_id,p_column,'RULE_XXX',b_rule,p_technical_rule)  
+  message_insert=insert_rule(p_dim_id,p_structure_id,p_column,'RULE_',b_rule,p_technical_rule)  
   streamlit.text(message_insert)
