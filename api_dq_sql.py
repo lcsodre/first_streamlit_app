@@ -151,7 +151,7 @@ if p_dim=='INTEGRITY':
   ########################################################
   p_rule_dim = 'Select quantity of records where value not exists on table ' + p_structure2 + '(' +p_column2 +')'
 
-
+streamlit.text(streamlit.session_state)
 b_rule = streamlit.text_area('Busines rule', value='#Snowflake \n'+p_structure+'('+p_column+') \n' + p_rule_dim,height=300)
 
 if streamlit.button('Preview SQL'):
