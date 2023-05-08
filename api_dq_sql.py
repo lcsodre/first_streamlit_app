@@ -153,6 +153,6 @@ if streamlit.button('Preview SQL'):
 if streamlit.button('Add Rule'):
   #Call API to write the SQL
   p_technical_rule=call_openai(b_rule)
-  message_insert=insert_rule(p_dim_id,p_structure_id,p_column,'RULE_'+ str(p_structure_id)+ '_'+p_column+str(p_dim_id),b_rule,p_technical_rule)  
+  message_insert=insert_rule(p_dim_id,p_structure_id,p_column,'RULE_',b_rule,p_technical_rule)  
   streamlit.text(message_insert)
  
